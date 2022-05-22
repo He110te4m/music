@@ -4,8 +4,8 @@
  */
 const versions = Object.entries(window.versions)
   .sort(
-    ([key1], [key2]) => key1.localeCompare(key2),
-  );
+    ([key1], [key2]) => key1.localeCompare(key2)
+  )
 </script>
 
 <template>

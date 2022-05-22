@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import ReactiveCounter from '/@/components/ReactiveCounter.vue';
-import ReactiveHash from '/@/components/ReactiveHash.vue';
+import ReactiveCounter from '/@/components/ReactiveCounter.vue'
+import ReactiveHash from '/@/components/ReactiveHash.vue'
 import ElectronVersions from '/@/components/ElectronVersions.vue';</script>
 
 <template>
@@ -50,6 +50,7 @@ import ElectronVersions from '/@/components/ElectronVersions.vue';</script>
   margin: 60px auto;
   max-width: 700px;
 }
+
 fieldset {
   margin: 2rem;
   padding: 1rem;
