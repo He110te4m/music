@@ -13,6 +13,9 @@
     "paths": {
       "@/*": [
         "./src/*"
+      ],
+      "common/*": [
+        "../common/*"
       ]
     },
     "lib": ["ESNext", "dom", "dom.iterable"]
@@ -24,6 +27,7 @@
     "src/**/*.tsx",
     "types/**/*.d.ts",
     "../../types/**/*.d.ts",
+    "../common/**/*.ts",
     "../preload/contracts.d.ts"
   ],
   "exclude": [

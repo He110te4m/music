@@ -2,4 +2,4 @@
  * @module preload
  */
 
-import './sendMessage'
+import '@/sendMessage'

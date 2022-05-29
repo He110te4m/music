@@ -11,6 +11,14 @@
     "types" : ["node"],
 
     "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ],
+      "common/*": [
+        "../common/*"
+      ]
+    },
   },
   "include": [
     "src/**/*.ts",

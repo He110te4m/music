@@ -13,7 +13,8 @@ const config: UserConfig = {
   root: PACKAGE_ROOT,
   resolve: {
     alias: {
-      '@/': join(PACKAGE_ROOT, 'src') + '/'
+      '@/': join(PACKAGE_ROOT, 'src') + '/',
+      'common/': join(PACKAGE_ROOT, '../common') + '/'
     }
   },
   css: {
@@ -34,7 +35,8 @@ const config: UserConfig = {
   base: '',
   server: {
     fs: {
-      strict: true
+      strict: true,
+      allow: ['..']
     }
   },
   build: {

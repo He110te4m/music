@@ -6,7 +6,7 @@ import defaultLayout from '@/layout/default/index.vue'
 import { useLayoutStore } from './store/layout'
 import { zhCN, dateZhCN } from 'naive-ui'
 import { WindowMinimizeRegular, WindowCloseRegular, WindowMaximizeRegular } from '@vicons/fa'
-import { MessageType } from '@/enums/message'
+import { MessageType } from 'common/enums/event'
 
 const layoutMap = {
   [LayoutTypeEnum.default]: defaultLayout
@@ -23,8 +23,9 @@ function onMini () {
   window.sendMessage(MessageType.miniWindow)
 }
 
-function onMax () {
-  window.sendMessage(MessageType.maxWindow)
+async function onMax () {
+  const isMax = await window.sendMessage(MessageType.maxWindow)
+  console.log(isMax)
 }
 
 function onClose () {

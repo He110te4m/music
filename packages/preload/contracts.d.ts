@@ -1,8 +1,13 @@
-import type { MessageType, messageMap } from './src/sendMessage'
+import type { MessageMap } from '@/sendMessage'
+import type { MessageType } from 'common/enums/event'
+
+type MessageFn = {
+  [TKey in keyof MessageMap]: (message: MessageType, ...args: Parameters<MessageMap[TKey]>) => ReturnType<MessageMap[TKey]>
+}
 
 declare global {
   interface Exposed {
-    readonly sendMessage: Readonly<messageMap[MessageType]>
+    readonly sendMessage: MessageFn | ((message: MessageType) => void)
   }
 
   // eslint-disable-next-line @typescript-eslint/no-empty-interface

@@ -12,13 +12,17 @@
 
     "baseUrl": ".",
     "paths": {
-      "/@/*": [
+      "@/*": [
         "./src/*"
+      ],
+      "common/*": [
+        "../common/*"
       ]
     },
   },
   "include": [
     "src/**/*.ts",
+    "../common/**/*.ts",
     "../../types/**/*.d.ts"
   ],
   "exclude": [
