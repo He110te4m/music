@@ -1,4 +1,4 @@
-import { app, shell } from 'electron'
+import { shell, type WebContents } from 'electron'
 import { URL } from 'url'
 
 /**
@@ -42,7 +42,7 @@ const ALLOWED_EXTERNAL_ORIGINS = new Set<`https://${string}`>([
   'https://github.com'
 ])
 
-app.on('web-contents-created', (_, contents) => {
+export function useWebContentSecurity(contents: WebContents) {
   /**
    * Block navigation to origins not on the allowlist.
    *
@@ -140,4 +140,4 @@ app.on('web-contents-created', (_, contents) => {
     // Disable Node.js integration
     webPreferences.nodeIntegration = false
   })
-})
+}

@@ -11,7 +11,8 @@ const config: UserConfig = {
   envDir: process.cwd(),
   resolve: {
     alias: {
-      '/@/': join(PACKAGE_ROOT, 'src') + '/'
+      '@/': join(PACKAGE_ROOT, 'src') + '/',
+      'common/': join(PACKAGE_ROOT, '../common/') + '/'
     }
   },
   build: {
