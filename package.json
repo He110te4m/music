@@ -17,7 +17,7 @@
     "test:main": "vitest run -r packages/main --passWithNoTests",
     "test:preload": "vitest run -r packages/preload --passWithNoTests",
     "test:renderer": "vitest run -r packages/renderer --passWithNoTests",
-    "watch": "node scripts/watch.js",
+    "dev": "node scripts/watch.js",
     "lint": "eslint . --ext js,ts,vue",
     "typecheck:main": "tsc --noEmit -p packages/main/tsconfig.json",
     "typecheck:preload": "tsc --noEmit -p packages/preload/tsconfig.json",
@@ -27,6 +27,7 @@
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "5.12.1",
     "@typescript-eslint/parser": "^5.25.0",
+    "@vicons/fa": "~0.12.0",
     "@vitejs/plugin-vue": "2.2.2",
     "@vue/test-utils": "2.0.0-rc.18",
     "cross-env": "7.0.3",
@@ -36,16 +37,22 @@
     "eslint": "8.9.0",
     "eslint-plugin-vue": "8.5.0",
     "happy-dom": "2.41.0",
+    "less": "~4.1.2",
+    "naive-ui": "~2.29.0",
     "nano-staged": "0.6.0",
     "playwright": "1.19.1",
     "simple-git-hooks": "2.7.0",
-    "typescript": "4.5.5",
+    "typescript": "4.7.2",
+    "unplugin-vue-components": "~0.19.6",
+    "vfonts": "~0.0.3",
     "vite": "2.8.4",
     "vitest": "0.5.4",
     "vue-tsc": "0.31.4"
   },
   "dependencies": {
     "electron-updater": "4.6.5",
-    "vue": "3.2.31"
+    "pinia": "~2.0.14",
+    "vue": "3.2.31",
+    "vue-router": "~4.0.15"
   }
 }

@@ -11,5 +11,20 @@
     "parser": "@typescript-eslint/parser",
     "ecmaVersion": 12,
     "sourceType": "module"
+  },
+  "rules": {
+    "vue/multi-word-component-names": [
+      "error",
+      {
+        "ignores": [
+          "index",
+          "Header",
+          "Footer",
+          "Sidebar"
+        ]
+      }
+    ],
+    "@typescript-eslint/no-unused-vars": "off",
+    "@typescript-eslint/consistent-type-imports": "off"
   }
 }

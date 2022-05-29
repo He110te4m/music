@@ -1,9 +1,10 @@
-/* eslint-disable @typescript-eslint/consistent-type-imports */
+import type { MessageType, messageMap } from './src/sendMessage'
 
-interface Exposed {
-  readonly nodeCrypto: Readonly<typeof import('./src/nodeCrypto').nodeCrypto>
-  readonly versions: Readonly<typeof import('./src/versions').versions>
+declare global {
+  interface Exposed {
+    readonly sendMessage: Readonly<messageMap[MessageType]>
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+  interface Window extends Exposed {}
 }
-
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-interface Window extends Exposed {}
