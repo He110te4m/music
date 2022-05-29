@@ -5,7 +5,7 @@ import { useLayout } from '@/layout/composables/useLayout'
 import defaultLayout from '@/layout/default/index.vue'
 import { useLayoutStore } from './store/layout'
 import { zhCN, dateZhCN } from 'naive-ui'
-import { WindowMinimizeRegular, WindowCloseRegular, WindowMaximizeRegular } from '@vicons/fa'
+import { WindowMinimizeRegular, WindowCloseRegular, WindowRestoreRegular, WindowMaximizeRegular } from '@vicons/fa'
 import { MessageType } from 'common/enums/event'
 
 const layoutMap = {
@@ -23,9 +23,9 @@ function onMini () {
   window.sendMessage(MessageType.miniWindow)
 }
 
+let isMax = false
 async function onMax () {
-  const isMax = await window.sendMessage(MessageType.maxWindow)
-  console.log(isMax)
+  isMax = await window.sendMessage(MessageType.maxWindow)
 }
 
 function onClose () {
@@ -55,7 +55,8 @@ function onClose () {
           class="layout-toolbar__opr__item hand no-drag"
           @click="onMax"
         >
-          <WindowMaximizeRegular />
+          <WindowMaximizeRegular v-show="!isMax" />
+          <WindowRestoreRegular v-show="isMax" />
         </NIcon>
         <NIcon
           class="layout-toolbar__opr__item hand no-drag"

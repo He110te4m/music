@@ -2,8 +2,8 @@ import type { MessageMap } from '@/sendMessage'
 import type { MessageType } from 'common/enums/event'
 
 type MessageFn = {
-  [TKey in keyof MessageMap]: (message: MessageType, ...args: Parameters<MessageMap[TKey]>) => ReturnType<MessageMap[TKey]>
-}
+  [TKey in keyof MessageMap]: (message: TKey, ...args: Parameters<MessageMap[TKey]>) => ReturnType<MessageMap[TKey]>
+}[MessageType]
 
 declare global {
   interface Exposed {
