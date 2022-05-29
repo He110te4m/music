@@ -8,7 +8,7 @@ const messageMap = {
     ipcRenderer.send('mini-window')
   },
   [MessageType.maxWindow]: () => {
-    return ipcRenderer.callMain('max-window')
+    return ipcRenderer.callMain<void, boolean>('max-window')
   },
   [MessageType.closeWindow]: () => {
     ipcRenderer.send('close-window')
