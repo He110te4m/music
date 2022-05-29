@@ -1,10 +1,13 @@
 import { BrowserWindow } from 'electron'
 import { join } from 'path'
 import { URL } from 'url'
+import { useIPC } from './useIPC'
 
 async function createWindow() {
   const browserWindow = new BrowserWindow({
     show: false, // Use 'ready-to-show' event to show window
+    frame: false,
+    titleBarStyle: 'hidden',
     webPreferences: {
       nativeWindowOpen: true,
       webviewTag: false, // The webview tag is not recommended. Consider alternatives like iframe or Electron's BrowserView. https://www.electronjs.org/docs/latest/api/webview-tag#warning
@@ -49,6 +52,7 @@ export async function restoreOrCreateWindow() {
 
   if (window === undefined) {
     window = await createWindow()
+    useIPC(window)
   }
 
   if (window.isMinimized()) {

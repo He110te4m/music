@@ -1,4 +1,5 @@
 import { app } from 'electron'
+import { initWindow } from './init'
 import './security-restrictions'
 import { restoreOrCreateWindow } from '/@/mainWindow'
 
@@ -37,6 +38,7 @@ app.on('activate', restoreOrCreateWindow)
 app
   .whenReady()
   .then(restoreOrCreateWindow)
+  .then(initWindow)
   .catch(e => console.error('Failed create window:', e))
 
 /**
