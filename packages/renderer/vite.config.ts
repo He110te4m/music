@@ -14,7 +14,12 @@ const config: UserConfig = {
   resolve: {
     alias: {
       '@/': join(PACKAGE_ROOT, 'src') + '/',
-      'common/': join(PACKAGE_ROOT, '../common') + '/'
+      'composables/': join(PACKAGE_ROOT, 'src', 'composables') + '/',
+      'router/': join(PACKAGE_ROOT, 'src', 'router') + '/',
+      'style/': join(PACKAGE_ROOT, 'src', 'style') + '/',
+      'store/': join(PACKAGE_ROOT, 'src', 'store') + '/',
+      'views/': join(PACKAGE_ROOT, 'src', 'views') + '/',
+      'common/': join(PACKAGE_ROOT, '..', 'common') + '/'
     }
   },
   css: {
@@ -22,7 +27,7 @@ const config: UserConfig = {
       less: {
         charset: false,
         additionalData:
-          '@import "@/style/global/index.less"; @import (reference) "@/style/vars/index.less";'
+          '@import "style/global/index.less"; @import (reference) "style/vars/index.less";'
       }
     }
   },
@@ -50,6 +55,17 @@ const config: UserConfig = {
     },
     emptyOutDir: true,
     brotliSize: false
+  },
+  optimizeDeps: {
+    'include': [
+      'pinia',
+      'vue',
+      'vue-router',
+      'naive-ui',
+      '@vicons/fa',
+      '@vicons/material',
+      '@vueuse/core'
+    ]
   }
 }
 

@@ -12,6 +12,10 @@
     "ecmaVersion": 12,
     "sourceType": "module"
   },
+  "globals": {
+    "defineProps": "readonly",
+    "defineEmits": "readonly"
+  },
   "rules": {
     "vue/multi-word-component-names": [
       "error",

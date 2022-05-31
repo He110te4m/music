@@ -4,6 +4,7 @@ import { useIPC } from './useIPC'
 import { useWindow } from './useWindow'
 import * as log from 'electron-log'
 import { useWebContentSecurity } from './useWebContentSecurity'
+import { useDestroy } from './useDestroy'
 
 export class Electron implements AdaptBase {
   mainWindow: BrowserWindow | null
@@ -39,6 +40,9 @@ export class Electron implements AdaptBase {
       if (process.platform !== 'darwin') {
         app.quit()
       }
+
+      // 退出之前持久化内存数据
+      useDestroy()
     })
     app.on('activate', async () => {
       this.mainWindow = await useWindow({

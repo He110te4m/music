@@ -6,11 +6,10 @@ interface WindowOptions {
   afterCreatedWin?: (win: BrowserWindow) => void
 }
 
-export async function useWindow({ afterCreatedWin }: WindowOptions) {
+export async function useWindow(options: WindowOptions) {
   let window = BrowserWindow.getAllWindows().find(win => !win.isDestroyed())
   if (!window) {
-    window = await createWindow()
-    afterCreatedWin?.(window)
+    window = await createWindow(options)
   }
 
   if (window.isMaximized()) {
@@ -22,7 +21,7 @@ export async function useWindow({ afterCreatedWin }: WindowOptions) {
   return window
 }
 
-async function createWindow() {
+async function createWindow({ afterCreatedWin }: WindowOptions) {
   const win = new BrowserWindow({
     show: false, // 等 ready-to-show 事件触发再显示窗口
     frame: false, // 关闭外框
@@ -35,6 +34,7 @@ async function createWindow() {
   })
 
   initWindowEvent(win)
+  afterCreatedWin?.(win)
 
   const url = getPageURL()
 

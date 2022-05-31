@@ -7,7 +7,7 @@ type MessageFn = {
 
 declare global {
   interface Exposed {
-    readonly sendMessage: MessageFn | ((message: MessageType) => void)
+    readonly sendMessage: MessageFn;
   }
 
   // eslint-disable-next-line @typescript-eslint/no-empty-interface

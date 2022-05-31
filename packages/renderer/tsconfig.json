@@ -11,12 +11,13 @@
     "types" : ["node"],
     "baseUrl": ".",
     "paths": {
-      "@/*": [
-        "./src/*"
-      ],
-      "common/*": [
-        "../common/*"
-      ]
+      "common/*": [ "../common/*" ],
+      "composables/*": [ "./src/composables/*" ],
+      "router/*": [ "./src/router/*" ],
+      "store/*": [ "./src/store/*" ],
+      "style/*": [ "./src/style/*" ],
+      "views/*": [ "./src/views/*" ],
+      "@/*": [ "./src/*" ]
     },
     "lib": ["ESNext", "dom", "dom.iterable"]
   },
