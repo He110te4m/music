@@ -3,4 +3,5 @@ export interface ConfigurationBase {
   get(key: string): unknown;
   del(key: string): boolean;
   has(key: string): boolean;
+  len(): number;
 }

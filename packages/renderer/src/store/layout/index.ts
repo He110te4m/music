@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { STORT_ID_PREFIX } from './_utils'
+import { STORT_ID_PREFIX } from '../_utils'
 
 export const useLayoutStore = defineStore(`${STORT_ID_PREFIX}layout`, {
   state: () => ({
