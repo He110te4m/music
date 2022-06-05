@@ -8,27 +8,22 @@ const messageMap = {
   [MessageType.miniWindow]: () => {
     ipcRenderer.send(MessageType.miniWindow)
   },
-  [MessageType.maxWindow]: () => {
-    return ipcRenderer.callMain<void, boolean>(MessageType.maxWindow)
-  },
+  [MessageType.maxWindow]: () =>
+    ipcRenderer.callMain<void, boolean>(MessageType.maxWindow),
   [MessageType.closeWindow]: () => {
     ipcRenderer.send(MessageType.closeWindow)
   },
-  [MessageType.getPlaylist]: () => {
-    return ipcRenderer.callMain<void, Record<'id' | 'title', string>[]>(MessageType.getPlaylist)
-  },
-  [MessageType.createPlaylist]: (name: string) => {
-    return ipcRenderer.callMain<string, boolean>(MessageType.createPlaylist, name)
-  },
-  [MessageType.deletePlaylist]: (id: string) => {
-    return ipcRenderer.callMain<string, boolean>(MessageType.deletePlaylist, id)
-  },
-  [MessageType.renamePlaylist]: (playlist: Playlist) => {
-    return ipcRenderer.callMain<Playlist, boolean>(MessageType.renamePlaylist, playlist)
-  }
+  [MessageType.getPlaylist]: () =>
+    ipcRenderer.callMain<void, Record<'id' | 'title', string>[]>(MessageType.getPlaylist),
+  [MessageType.createPlaylist]: (name: string) =>
+    ipcRenderer.callMain<string, boolean>(MessageType.createPlaylist, name),
+  [MessageType.deletePlaylist]: (id: string) =>
+    ipcRenderer.callMain<string, boolean>(MessageType.deletePlaylist, id),
+  [MessageType.renamePlaylist]: (playlist: Playlist) =>
+    ipcRenderer.callMain<Playlist, boolean>(MessageType.renamePlaylist, playlist)
 } as const
 
-export type MessageMap = typeof messageMap
+export type MessageMap = typeof messageMap;
 
 exposeInMainWorld('sendMessage', (message: MessageType, data?: any) => {
   const fn = messageMap[message]

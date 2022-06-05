@@ -31,21 +31,29 @@ export function useEditPlaylist(afterFn: () => void) {
     isShowPlaylistModal.value = true
   }
 
-  function submitFn(title: string, afterFn: () => void, currentPlaylist: Playlist | null) {
+  async function submitFn(title: string, afterFn: () => void, currentPlaylist: Playlist | null) {
     if (!currentPlaylistTitle.value) {
-      createPlaylist(title)
-      afterFn()
-      return
+      const res = await createPlaylist(title)
+      if (res === true) {
+        afterFn()
+      }
+      return res
     }
 
     if (!currentPlaylist) {
-      return
+      return false
     }
-    renamePlaylist({
+
+    const res = await renamePlaylist({
       id: currentPlaylist.id,
       title
     })
-    afterFn()
+
+    if (res === true) {
+      afterFn()
+    }
+
+    return res
   }
 
   return {

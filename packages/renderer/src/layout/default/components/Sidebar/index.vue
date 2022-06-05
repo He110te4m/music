@@ -1,12 +1,13 @@
 <script lang="ts" setup>
 import { useMusicMessageStore } from 'store/message/music'
-import { ref, unref, useAttrs } from 'vue'
+import { ref, unref, useAttrs, computed } from 'vue'
 import type { Playlist } from 'common/types/playlist'
 import { useShowMenu } from '../../composables/useShowMenu'
 import SidebarPlaylist from './SidebarPlaylist.vue'
 import { useReadPlaylist } from './useReadPlaylist'
 import { useDeletePlaylist } from './useDeletePlaylist'
 import { useEditPlaylist } from './useEditPlaylist'
+import { useMessage } from 'naive-ui'
 
 const attrs = useAttrs()
 
@@ -43,12 +44,21 @@ function onRename() {
 }
 
 function onSubmit({ title }: Record<'title', string>) {
-  submitFn(unref(title), updatePlaylist, unref(currentPlaylist))
+  return submitFn(unref(title), updatePlaylist, unref(currentPlaylist))
 }
 
 const { deleteFn } = useDeletePlaylist(afterOpr)
 
+const isLastPlaylist = computed(() => {
+  return playlistList.value.length < 2
+})
+
 function onDelete() {
+  if (isLastPlaylist.value) {
+    useMessage().error('至少需要有一个播放列表')
+    return
+  }
+
   deleteFn(unref(currentPlaylist))
 }
 
@@ -107,6 +117,7 @@ function afterOpr() {
       <NListItem v-if="currentPlaylist">
         <NButton
           text
+          :disabled="isLastPlaylist"
           @click="onDelete"
         >
           删除
@@ -119,7 +130,7 @@ function afterOpr() {
     v-model:show="isShowPlaylistModal"
     :title="title"
     :value="currentPlaylistTitle"
-    @submit="onSubmit"
+    :submit="onSubmit"
   />
 </template>
 

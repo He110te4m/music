@@ -28,6 +28,7 @@
     "@typescript-eslint/consistent-type-imports": "error",
     "@typescript-eslint/no-empty-function": "off",
     "@typescript-eslint/no-explicit-any": "off",
+    "no-extra-boolean-cast": "off",
 
   /**
    * Having a semicolon helps the optimizer interpret your code correctly.
