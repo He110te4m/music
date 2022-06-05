@@ -16,24 +16,18 @@ export function usePlaylistIPC() {
   ipcMain.answerRenderer(MessageType.createPlaylist, (title: string) => {
     ipcLog.debug(`创建播放列表 ${title}`)
 
-    playlistHandler.add(title)
-
-    return true
+    return playlistHandler.add(title)
   })
 
   ipcMain.answerRenderer(MessageType.deletePlaylist, (id: string) => {
     ipcLog.debug(`删除播放列表 ${id}`)
 
-    playlistHandler.delete(id)
-
-    return true
+    return playlistHandler.delete(id)
   })
 
   ipcMain.answerRenderer(MessageType.renamePlaylist, (playlist: Playlist) => {
     ipcLog.debug(`重命名播放列表 ${playlist.id}`)
 
-    playlistHandler.rename(playlist)
-
-    return true
+    return playlistHandler.rename(playlist)
   })
 }

@@ -8,12 +8,12 @@ interface Props {
   show: boolean;
   title: string;
   value: string;
+  submit: (data: FormData) => boolean | string | Promise<boolean | string>;
 }
 
 const props = defineProps<Props>()
 const emits = defineEmits<{
   (e: 'update:show', show: boolean): void;
-  (e: 'submit', data: FormData): void;
 }>()
 
 const isShow = useVModel(props, 'show', emits)
@@ -44,13 +44,21 @@ const formRules: FormRules = {
 const formRef = ref<FormInst | null>(null)
 const message = useMessage()
 function onSubmit() {
-  formRef.value?.validate(errors => {
-    if (!errors) {
-      emits('submit', unref(submitData))
-      isShow.value = false
+  formRef.value?.validate(async (errors) => {
+    if (!!errors) {
+      message.error('校验失败，请检查输入')
       return
     }
-    message.error('校验失败，请检查输入')
+    const res = await props.submit(unref(submitData))
+    if (typeof res === 'string') {
+      message.error(res)
+      return
+    }
+    if (!res) {
+      message.error('未知错误，操作失败')
+      return
+    }
+    isShow.value = false
   })
 }
 </script>
