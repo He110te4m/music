@@ -1,7 +1,14 @@
 <script lang="ts" setup>
-const test = 'He110'
+import { toRefs } from 'vue'
+import { useMusicMessageStore } from 'store/message/music'
+
+const { currentPlaylist } = toRefs(useMusicMessageStore())
 </script>
 
 <template>
-  Home, {{ test }}
+  <NList>
+    <NListItem>
+      {{ currentPlaylist }}
+    </NListItem>
+  </NList>
 </template>

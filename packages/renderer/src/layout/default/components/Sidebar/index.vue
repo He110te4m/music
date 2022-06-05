@@ -1,20 +1,18 @@
 <script lang="ts" setup>
-import { usePlaylistMessageStore } from 'store/message/playlist'
-import { onMounted, ref, unref, useAttrs } from 'vue'
+import { useMusicMessageStore } from 'store/message/music'
+import { ref, unref, useAttrs } from 'vue'
 import type { Playlist } from 'common/types/playlist'
 import { useShowMenu } from '../../composables/useShowMenu'
 import SidebarPlaylist from './SidebarPlaylist.vue'
+import { useReadPlaylist } from './useReadPlaylist'
+import { useDeletePlaylist } from './useDeletePlaylist'
+import { useEditPlaylist } from './useEditPlaylist'
 
 const attrs = useAttrs()
 
-/** 已有的 playlist */
-const playlistList = ref<Playlist[]>([])
-const { getPlaylist, createPlaylist, deletePlaylist, renamePlaylist } = usePlaylistMessageStore()
-async function updatePlaylist() {
-  playlistList.value = await getPlaylist()
-}
+const { list: playlistList, updatePlaylist } = useReadPlaylist()
 
-onMounted(updatePlaylist)
+const { updateCurrentPlaylist } = useMusicMessageStore()
 
 /** 记录当前右键的 playlist */
 const currentPlaylist = ref<Playlist | null>(null)
@@ -27,58 +25,35 @@ function onContextMenu(e: PointerEvent, playlist: Playlist | null = null) {
   currentPlaylist.value = playlist
 }
 
-/** 是否显示“输入播放列表名弹窗” */
-const isShowPlaylistModal = ref(false)
-/** “输入播放列表名弹窗”的弹窗标题 */
-const title = ref('')
-/** “输入播放列表名弹窗”的预设值 */
-const currentPlaylistTitle = ref('')
+const {
+  isShowPlaylistModal,
+  title,
+  currentPlaylistTitle,
+  addFn,
+  renameFn,
+  submitFn
+} = useEditPlaylist(onCloseMenu)
 
-/** 新增播放列表 */
 function onAdd() {
-  title.value = '新增播放列表'
-  currentPlaylistTitle.value = ''
-  onCloseMenu()
-  isShowPlaylistModal.value = true
+  addFn()
 }
 
-/** 重命名播放列表 */
 function onRename() {
-  if (!currentPlaylist.value) {
-    return
-  }
-  title.value = '重命名播放列表'
-  currentPlaylistTitle.value = currentPlaylist.value.title
-  onCloseMenu()
-  isShowPlaylistModal.value = true
+  renameFn(unref(currentPlaylist))
 }
 
 function onSubmit({ title }: Record<'title', string>) {
-  if (currentPlaylistTitle.value) {
-    if (!currentPlaylist.value) {
-      return
-    }
-
-    // 有预设值，是重命名
-    renamePlaylist({
-      id: currentPlaylist.value.id,
-      title: unref(title)
-    })
-  } else {
-    // 没有预设值，是新增播放列表
-    createPlaylist(unref(title))
-  }
-
-  updatePlaylist()
+  submitFn(unref(title), updatePlaylist, unref(currentPlaylist))
 }
 
-function onDelete() {
-  if (!currentPlaylist.value) {
-    return
-  }
-  onCloseMenu()
-  deletePlaylist(currentPlaylist.value.id)
+const { deleteFn } = useDeletePlaylist(afterOpr)
 
+function onDelete() {
+  deleteFn(unref(currentPlaylist))
+}
+
+function afterOpr() {
+  onCloseMenu()
   updatePlaylist()
 }
 </script>
@@ -92,7 +67,8 @@ function onDelete() {
     <NListItem
       v-for="item in playlistList"
       :key="item.id"
-      class="default-sidebar__playlist"
+      class="default-sidebar__playlist hand"
+      @click.left="updateCurrentPlaylist(item.id)"
       @contextmenu.prevent.stop="(e: PointerEvent) => onContextMenu(e, item)"
     >
       <NEllipsis class="default-sidebar__playlist__title">
